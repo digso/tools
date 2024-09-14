@@ -1,3 +1,6 @@
+import 'package:html/dom.dart';
+import 'package:strict_lints/src/utils.dart';
+
 class Rule {
   const Rule(this.name, {this.status = Status.stable, this.tags = const {}});
 
@@ -32,6 +35,22 @@ enum Status {
   unreleased;
 
   bool get isStable => this == stable;
+
+  /// ```html
+  /// <em>(Name)</em>
+  /// ```
+  static Status? parse(Element element) {
+    if (element.localName != 'em') return null;
+
+    String text = element.text.trim();
+    if (!text.hasParentheses) return null;
+
+    text = text.removeParentheses.trim();
+    for (final status in Status.values) {
+      if (text == status.name.capitalCase) return status;
+    }
+    return null;
+  }
 }
 
 /// https://dart.dev/tools/linter-rules#sets
