@@ -55,8 +55,33 @@ enum Status {
 
 /// https://dart.dev/tools/linter-rules#sets
 enum Tag {
-  fix,
-  core,
-  flutter,
-  recommended;
+  fix('has-fix', 'quick-fixes'),
+  core('style-core', 'lints'),
+  flutter('style-flutter', 'flutter_lints'),
+  recommended('style-recommended', 'lints');
+
+  const Tag(this.filename, this.docsTitle);
+
+  final String filename;
+  final String docsTitle;
+
+  /// ```html
+  /// <a href="/tools/linter-rules#docs-title">
+  ///   <img src="/assets/img/tools/linter/filename.svg" alt="xxx">
+  /// </a>
+  /// ```
+  static Tag? parse(Element element) {
+    if (element.localName != 'a' ||
+        element.children.firstOrNull?.localName != 'img') return null;
+
+    final href = element.attributes['href'];
+    final path = element.children.firstOrNull?.attributes['src'];
+    if (href == null || path == null) return null;
+
+    for (final tag in Tag.values) {
+      if (href == '/tools/linter-rules#${tag.docsTitle}' &&
+          path == '/assets/img/tools/linter/${tag.filename}.svg') return tag;
+    }
+    return null;
+  }
 }
