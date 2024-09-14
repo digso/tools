@@ -1,0 +1,36 @@
+# Miscellaneous.
+.DS_Store
+.buildlog/
+.history
+.svn/
+migrate_working_dir/
+
+# Code editor local preferences.
+.idea/
+.vs/
+*.iml
+*.ipr
+*.iws
+*.sln
+*.swp
+
+# Flutter/Dart/Pub auto managed files.
+**/doc/api/
+**/ios/Flutter/.last_build_id
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.pub-cache/
+.pub/
+/build/
+pubspec.lock
+
+# Compilation artifacts.
+/android/app/debug
+/android/app/profile
+/android/app/release
+app.*.symbols
+app.*.map.json
+*.class
+*.log
+*.pyc

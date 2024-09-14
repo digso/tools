@@ -1,0 +1,7 @@
+name: strict_lints
+description: Strict linter options and its parser for Dart's official docs.
+version: 1.0.0
+environment: {sdk: ^3.5.2}
+
+dependencies:
+  flutter_lints: ^4.0.0
