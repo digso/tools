@@ -124,6 +124,12 @@ void main() {
         final result = Rule(name, status: status, tags: tags);
         parseRule('<p>$statusDom<br>$tagsDom</p>', null);
         parseRule('<p>$nameDom$statusDom<br>$tagsDom</p>', result);
+        parseRule('<p>$nameDom$nameDom$statusDom<br>$tagsDom</p>', result);
+        parseRule('<p>$nameDom$statusDom$statusDom<br>$tagsDom</p>', result);
+        parseRule('<p>$nameDom$statusDom<br>$tagsDom$tagsDom</p>', result);
+        parseRule('<p>$nameDom$statusDom$tagsDom<br>$tagsDom</p>', result);
+        parseRule('<p>$nameDom$statusDom$tagsDom</p>', result);
+        parseRule('<p><br>$nameDom$statusDom$tagsDom</p>', result);
       }
     }
   });
