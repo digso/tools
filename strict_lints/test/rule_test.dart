@@ -132,6 +132,8 @@ void main() {
         parseRule('<p><br>$nameDom$statusDom$tagsDom</p>', result);
       }
     }
+    parseRule('<div id="site-title"><h1>xxx</h1></div>', null);
+    parseRule('<p>xxx</p>', null);
   });
 }
 
