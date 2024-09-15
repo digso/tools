@@ -23,7 +23,10 @@ migrate_working_dir/
 .pub-cache/
 .pub/
 build/
-pubspec.lock
+
+# Ignore lockfile for packages while record lockfile for bin.
+**/pubspec.lock
+!/pubspec.lock
 
 # Compilation artifacts.
 /android/app/debug
