@@ -17,41 +17,37 @@ void main() {
 
   test('parse tags', () {
     for (final tag in Tag.values) {
-      parseTag('<a href="/tools/linter-rules#${tag.docsTitle}"></a>', null);
-      parseTag(
-        '<a href="/tools/linter-rules#${tag.docsTitle}">'
-        '<img src="/assets/img/tools/linter/${tag.filename}.svg" alt="xxx">'
-        '</a>',
-        tag,
-      );
+      final correctOuter = '<a href="/tools/linter-rules#${tag.docsTitle}">';
+      final spaceOuter = '<a href=" /tools/linter-rules#${tag.docsTitle} ">';
+      final errorOuterTag = '<div href="/tools/linter-rules#${tag.docsTitle}">';
+      const errorOuterName = '<a href="/tools/linter-rules#error-name">';
+      const outerEnd = '</a>';
+      const errorOuterEnd = '</div>';
 
-      // Invalid tags.
-      parseTag(
-        '<span href="/tools/linter-rules#${tag.docsTitle}">'
-        '<img src="/assets/img/tools/linter/${tag.filename}.svg" alt="xxx">'
-        '</span>',
-        null,
-      );
-      parseTag(
-        '<a href="/tools/linter-rules#${tag.docsTitle}">'
-        '<p src="/assets/img/tools/linter/${tag.filename}.svg" alt="xxx"></p>'
-        '</a>',
-        null,
-      );
+      final correctInner =
+          '<img src="/assets/img/tools/linter/${tag.filename}.svg" '
+          'alt="xxx">';
+      final spaceInner =
+          '<img src=" /assets/img/tools/linter/${tag.filename}.svg " '
+          'alt="xxx">';
+      const errorInnerName =
+          '<img src="/assets/img/tools/linter/error-name.svg" alt="xxx">';
+      final errorInnerTag =
+          '<input src="/assets/img/tools/linter/${tag.filename}.svg" '
+          'alt="xxx">';
 
-      // Error names.
-      parseTag(
-        '<a href="/tools/linter-rules#error-name">'
-        '<img src="/assets/img/tools/linter/${tag.filename}.svg" alt="xxx">'
-        '</a>',
-        null,
-      );
-      parseTag(
-        '<a href="/tools/linter-rules#${tag.docsTitle}">'
-        '<img src="/assets/img/tools/linter/error-name.svg" alt="xxx">'
-        '</a>',
-        null,
-      );
+      parseTag('$correctOuter$outerEnd', null);
+      parseTag('$spaceOuter$outerEnd', null);
+      parseTag('$correctOuter$correctInner$outerEnd', tag);
+      parseTag('$spaceOuter$correctInner$outerEnd', tag);
+      parseTag('$correctOuter$spaceInner$outerEnd', tag);
+      parseTag('$spaceOuter$spaceInner$outerEnd', tag);
+
+      // Invalid tags or name.
+      parseTag('$errorOuterName$correctInner$outerEnd', null);
+      parseTag('$errorOuterTag$correctInner$errorOuterEnd', null);
+      parseTag('$correctOuter$errorInnerName$outerEnd', null);
+      parseTag('$correctOuter$errorInnerTag$outerEnd', null);
     }
   });
 }
