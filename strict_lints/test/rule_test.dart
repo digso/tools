@@ -112,7 +112,8 @@ void main() {
         const tagHrefPrefix = '/tools/linter-rules#';
         const tagImgSrcPrefix = '/assets/img/tools/linter/';
         const nameDom = '<a href="$nameHrefPrefix$name"><code>$name</code></a>';
-        final statusDom = '<em>(${status.name.capitalCase})</em>';
+        final statusDom =
+            status.isStable ? '' : '<em>(${status.name.capitalCase})</em>';
         final tagsDom = [
           for (final tag in tags)
             '<a href="$tagHrefPrefix${tag.docsTitle}">'

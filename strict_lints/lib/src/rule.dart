@@ -58,7 +58,7 @@ class Rule {
       }
       if (status == null) {
         status = Status.parse(child);
-        continue;
+        if (status != null) continue;
       }
       final tag = Tag.parse(child);
       if (tag != null) {
