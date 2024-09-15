@@ -24,6 +24,28 @@ class Rule {
 
   @override
   int get hashCode => Object.hash(Rule, name, status, tags);
+
+  static Rule? parse(Element element) {
+    return null;
+  }
+
+  /// ```html
+  /// <a href="/tools/linter-rules/lint_rule_name">
+  ///   <code>lint_rule_name</code>
+  /// </a>
+  /// ```
+  static String? parseName(Element element) {
+    if (element.localName != 'a' ||
+        element.children.firstOrNull?.localName != 'code') return null;
+
+    final href = element.attributes['href']?.trim();
+    if (href == null) return null;
+
+    const prefix = '/tools/linter-rules/';
+    if (!href.startsWith(prefix)) return null;
+    final name = href.substring(prefix.length);
+    return element.children.first.innerHtml.trim() == name ? name : null;
+  }
 }
 
 /// https://dart.dev/tools/linter-rules#status
