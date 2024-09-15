@@ -96,8 +96,8 @@ enum Tag {
     if (element.localName != 'a' ||
         element.children.firstOrNull?.localName != 'img') return null;
 
-    final href = element.attributes['href'];
-    final path = element.children.firstOrNull?.attributes['src'];
+    final href = element.attributes['href']?.trim();
+    final path = element.children.firstOrNull?.attributes['src']?.trim();
     if (href == null || path == null) return null;
 
     for (final tag in Tag.values) {
