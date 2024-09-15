@@ -25,7 +25,7 @@ extension AllCombinations<T> on Set<T> {
     };
     final handler = [initValue];
     var currentLayer = initValue;
-    for (int i = 1; i < length; i++) {
+    for (var i = 1; i < length; i++) {
       final nextLayer = <Set<T>>{};
       for (final items in currentLayer) {
         for (final item in this) {

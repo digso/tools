@@ -50,7 +50,7 @@ class Rule {
     if (element.localName != 'p') return null;
     String? name;
     Status? status;
-    final Set<Tag> tags = {};
+    final tags = <Tag>{};
     for (final child in element.children) {
       if (name == null) {
         name = parseName(child);
@@ -106,7 +106,7 @@ enum Status {
   static Status? parse(Element element) {
     if (element.localName != 'em') return null;
 
-    String text = element.text.trim();
+    var text = element.text.trim();
     if (!text.hasParentheses) return null;
 
     text = text.removeParentheses.trim();

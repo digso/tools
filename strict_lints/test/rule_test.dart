@@ -116,9 +116,11 @@ void main() {
             status.isStable ? '' : '<em>(${status.name.capitalCase})</em>';
         final tagsDom = [
           for (final tag in tags)
-            '<a href="$tagHrefPrefix${tag.docsTitle}">'
-                '<img src="$tagImgSrcPrefix${tag.filename}.svg" alt="xxx">'
-                '</a>'
+            '''
+              <a href="$tagHrefPrefix${tag.docsTitle}"> 
+                <img src="$tagImgSrcPrefix${tag.filename}.svg" alt="xxx"> 
+              </a>
+            ''',
         ].join('\n');
 
         final result = Rule(name, status: status, tags: tags);

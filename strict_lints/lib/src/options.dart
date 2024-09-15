@@ -27,20 +27,20 @@ extension GenerateOptions on Iterable<Rule> {
       Status.unreleased,
     }.contains(rule.status);
 
-    final tagsRemoval = rule.tags.any((element) {
-      return {
+    final tagsRemoval = rule.tags.any(
+      (element) => {
         Tag.core,
         Tag.flutter,
         Tag.recommended,
-      }.contains(element);
-    });
+      }.contains(element),
+    );
 
     return statusRemoval || tagsRemoval;
   }
 
   Options generateOptions({bool Function(Rule rule)? remove}) => {
         for (final rule in this)
-          if (!(remove ?? _defaultFilter).call(rule)) rule.name: true
+          if (!(remove ?? _defaultFilter).call(rule)) rule.name: true,
       };
 }
 
@@ -63,19 +63,22 @@ Future<List<Rule>> parseRules({Uri? site}) async {
 void editRules(File file, Options options) {
   const path = ['linter', 'rules'];
   if (!file.existsSync()) file.createSync(recursive: true);
-  file.writeAsStringSync((YamlEditor(file.readAsStringSync())
-        ..ensurePath(path)
-        ..update(path, options))
-      .toString());
+  file.writeAsStringSync(
+    (YamlEditor(file.readAsStringSync())
+          ..ensurePath(path)
+          ..update(path, options))
+        .toString(),
+  );
 }
 
 extension EnsurePath on YamlEditor {
   void ensurePath(Iterable<Object?> path) {
     final pathList = path.toList();
-    for (int i = 0; i < pathList.length; i++) {
+    for (var i = 0; i < pathList.length; i++) {
       final path = pathList.sublist(0, i);
       final key = pathList[i];
-      if (parseAt(path).value is! Map || parseAt(path).value[key] == null) {
+      if (parseAt(path).value is! Map ||
+          (parseAt(path).value as Map)[key] == null) {
         update(path, {key: {}});
       }
     }
