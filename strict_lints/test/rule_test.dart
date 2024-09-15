@@ -50,11 +50,41 @@ void main() {
       parseTag('$correctOuter$errorInnerTag$outerEnd', null);
     }
   });
+
+  test('parse name', () {
+    const name = 'lint_rule_name';
+    const correctHrefPrefix = '/tools/linter-rules/';
+    const correctOuter = '<a href="$correctHrefPrefix$name">';
+    const correctInner = '<code>$name</code>';
+    const spaceOuter = '<a href=" $correctHrefPrefix$name ">';
+    const spaceInner = '<code> $name </code>';
+    const errorOuterName = '<div href="error/$name">';
+    const errorInnerName = '<code>error-name</code>';
+    const errorOuterTag = '<span href="$correctHrefPrefix$name">';
+    const errorInnerTag = '<em href="$name"></em>';
+    const outerEnd = '</a>';
+    const errorOuterEnd = '</span>';
+
+    parseName('$correctOuter$outerEnd', null);
+    parseName('$spaceOuter$outerEnd', null);
+    parseName('$correctOuter$correctInner$outerEnd', name);
+    parseName('$spaceOuter$correctInner$outerEnd', name);
+    parseName('$correctOuter$spaceInner$outerEnd', name);
+    parseName('$spaceOuter$spaceInner$outerEnd', name);
+
+    // Invalid tags or name.
+    parseName('$errorOuterName$correctInner$outerEnd', null);
+    parseName('$errorOuterTag$correctInner$errorOuterEnd', null);
+    parseName('$correctOuter$errorInnerName$outerEnd', null);
+    parseName('$correctOuter$errorInnerTag$outerEnd', null);
+  });
 }
 
 void parseStatus(String raw, Status? value) => parse(raw, value, Status.parse);
 
 void parseTag(String raw, Tag? value) => parse(raw, value, Tag.parse);
+
+void parseName(String raw, String? value) => parse(raw, value, Rule.parseName);
 
 void parse<T>(String raw, T value, T Function(Element element) parser) =>
     expect(parser.call(Element.html(raw)), value);
