@@ -1,1 +1,1 @@
-
+export 'src/encapsulate.dart';
