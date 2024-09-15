@@ -20,13 +20,55 @@ class Rule {
       other is Rule &&
       other.name == name &&
       other.status == status &&
-      other.tags == tags;
+      other.tags.length == tags.length &&
+      other.tags.containsAll(tags);
 
   @override
-  int get hashCode => Object.hash(Rule, name, status, tags);
+  int get hashCode => Object.hashAll([Rule, name, status, ...tags]);
 
+  /// ```html
+  /// <p>
+  ///   <!-- name -->
+  ///   <a href="/tools/linter-rules/lint_rule_name">
+  ///     <code>lint_rule_name</code>
+  ///   </a>
+  ///
+  ///   <!-- status -->
+  ///   <em>(Name)</em>
+  ///   <br>
+  ///
+  ///   <!-- tags -->
+  ///   <a href="/tools/linter-rules#docs-title-1">
+  ///     <img src="/assets/img/tools/linter/filename-1.svg" alt="xxx">
+  ///   </a>
+  ///   <a href="/tools/linter-rules#docs-title-2">
+  ///     <img src="/assets/img/tools/linter/filename-2.svg" alt="xxx">
+  ///   </a>
+  /// </p>
+  /// ```
   static Rule? parse(Element element) {
-    return null;
+    if (element.localName != 'p') return null;
+    String? name;
+    Status? status;
+    final Set<Tag> tags = {};
+    for (final child in element.children) {
+      if (name == null) {
+        name = parseName(child);
+        continue;
+      }
+      if (status == null) {
+        status = Status.parse(child);
+        continue;
+      }
+      final tag = Tag.parse(child);
+      if (tag != null) {
+        tags.add(tag);
+        continue;
+      }
+    }
+    return name != null
+        ? Rule(name, status: status ?? Status.stable, tags: tags)
+        : null;
   }
 
   /// ```html

@@ -3,6 +3,7 @@ import 'package:strict_lints/spider.dart';
 import 'package:test/test.dart';
 
 void main() {
+  // <em>(Name)</em>
   test('parse status', () {
     for (final status in Status.values) {
       parseStatus('<em>(${status.name.capitalCase})</em>', status);
@@ -15,6 +16,9 @@ void main() {
     parseStatus('<em>(ErrorName)</em>', null);
   });
 
+  // <a href="/tools/linter-rules#docs-title">
+  //   <img src="/assets/img/tools/linter/filename.svg" alt="xxx">
+  // </a>
   test('parse tags', () {
     for (final tag in Tag.values) {
       final correctOuter = '<a href="/tools/linter-rules#${tag.docsTitle}">';
@@ -51,6 +55,9 @@ void main() {
     }
   });
 
+  // <a href="/tools/linter-rules/lint_rule_name">
+  //   <code>lint_rule_name</code>
+  // </a>
   test('parse name', () {
     const name = 'lint_rule_name';
     const correctHrefPrefix = '/tools/linter-rules/';
@@ -78,6 +85,47 @@ void main() {
     parseName('$correctOuter$errorInnerName$outerEnd', null);
     parseName('$correctOuter$errorInnerTag$outerEnd', null);
   });
+
+  // <p>
+  //   <!-- name -->
+  //   <a href="/tools/linter-rules/lint_rule_name">
+  //     <code>lint_rule_name</code>
+  //   </a>
+  //
+  //   <!-- status -->
+  //   <em>(Name)</em>
+  //   <br>
+  //
+  //   <!-- tags -->
+  //   <a href="/tools/linter-rules#docs-title-1">
+  //     <img src="/assets/img/tools/linter/filename-1.svg" alt="xxx">
+  //   </a>
+  //   <a href="/tools/linter-rules#docs-title-2">
+  //     <img src="/assets/img/tools/linter/filename-2.svg" alt="xxx">
+  //   </a>
+  // </p>
+  test('parse whole rule', () {
+    for (final status in Status.values) {
+      for (final tags in Tag.values.toSet().allCombinations) {
+        const name = 'lint_rule_name';
+        const nameHrefPrefix = '/tools/linter-rules/';
+        const tagHrefPrefix = '/tools/linter-rules#';
+        const tagImgSrcPrefix = '/assets/img/tools/linter/';
+        const nameDom = '<a href="$nameHrefPrefix$name"><code>$name</code></a>';
+        final statusDom = '<em>(${status.name.capitalCase})</em>';
+        final tagsDom = [
+          for (final tag in tags)
+            '<a href="$tagHrefPrefix${tag.docsTitle}">'
+                '<img src="$tagImgSrcPrefix${tag.filename}.svg" alt="xxx">'
+                '</a>'
+        ].join('\n');
+
+        final result = Rule(name, status: status, tags: tags);
+        parseRule('<p>$statusDom<br>$tagsDom</p>', null);
+        parseRule('<p>$nameDom$statusDom<br>$tagsDom</p>', result);
+      }
+    }
+  });
 }
 
 void parseStatus(String raw, Status? value) => parse(raw, value, Status.parse);
@@ -85,6 +133,8 @@ void parseStatus(String raw, Status? value) => parse(raw, value, Status.parse);
 void parseTag(String raw, Tag? value) => parse(raw, value, Tag.parse);
 
 void parseName(String raw, String? value) => parse(raw, value, Rule.parseName);
+
+void parseRule(String raw, Rule? value) => parse(raw, value, Rule.parse);
 
 void parse<T>(String raw, T value, T Function(Element element) parser) =>
     expect(parser.call(Element.html(raw)), value);
