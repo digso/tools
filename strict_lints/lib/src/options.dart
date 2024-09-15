@@ -7,6 +7,17 @@ import 'package:yaml_edit/yaml_edit.dart';
 import 'rule.dart';
 
 typedef Options = Map<String, bool>;
+typedef NullableOptions = Map<String, bool?>;
+
+extension OverrideOptions on Options {
+  Options override(NullableOptions map) {
+    final handler = {...this};
+    for (final key in map.keys) {
+      map[key] == null ? handler.remove(key) : handler[key] = map[key]!;
+    }
+    return handler;
+  }
+}
 
 extension GenerateOptions on Iterable<Rule> {
   static bool _defaultFilter(Rule rule) {
