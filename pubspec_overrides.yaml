@@ -1,2 +1,0 @@
-dependency_overrides:
-  strict_lints: {path: strict_lints}
