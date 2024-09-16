@@ -1,2 +1,13 @@
-A sample command-line application with an entrypoint in `bin/`, library code
-in `lib/`, and example unit test in `test/`.
+# Fmt
+
+Common formatter for config files and markdown written in Dart.
+
+## License and Contributors
+
+This package is released under the [MIT License](LICENSE.txt),
+and you are welcomed to add your name in the following list
+(sort by GitHub User ID alphabetically):
+
+| GitHub User ID | Name(s)                     | Commit Email         |
+| -------------- | --------------------------- | -------------------- |
+| aprosail       | 廿一日的船 (James Aprosail) | aprosail@outlook.com |
