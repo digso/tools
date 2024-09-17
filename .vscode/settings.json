@@ -14,5 +14,13 @@
   // Format on save using other extensions.
   "[dart]": {"editor.defaultFormatter": "Dart-Code.dart-code"},
   "[ignore]": {"editor.defaultFormatter": "foxundermoon.shell-format"},
-  "[properties]": {"editor.defaultFormatter": "foxundermoon.shell-format"}
+  "[properties]": {"editor.defaultFormatter": "foxundermoon.shell-format"},
+
+  // File associations.
+  "files.associations": {
+    ".metadata": "yaml",
+    ".pubignore": "ignore",
+    "contributors": "txt",
+    "license": "txt"
+  }
 }
