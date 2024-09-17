@@ -1,5 +1,5 @@
 import 'package:html/dom.dart';
-import 'package:strict_lints/spider.dart';
+import 'package:strict_lints/strict_lints.dart';
 import 'package:test/test.dart';
 
 void main() {

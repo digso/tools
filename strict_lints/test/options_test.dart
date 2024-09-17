@@ -1,4 +1,4 @@
-import 'package:strict_lints/spider.dart';
+import 'package:strict_lints/strict_lints.dart';
 import 'package:test/test.dart';
 import 'package:yaml_edit/yaml_edit.dart';
 

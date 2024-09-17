@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:path/path.dart' as path;
-import 'package:strict_lints/spider.dart';
+import 'package:strict_lints/strict_lints.dart';
 
 const libPath = 'lib';
 final dartFile = File(path.join(libPath, 'dart.yaml'));
