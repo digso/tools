@@ -2,7 +2,33 @@
 
 [English](./README.md) | [中文](./README.zh.md)
 
-Strict linter options and its parser for Dart's official docs.
+A strict linter config that enable as much rules as possible,
+and this package also contains the infrastructure to spider all latest APIs
+from the official documentation website of dart lints.
+
+A strict coding rule will help you to prevent 💩 from your code.
+Although there are existing official linter options such as
+the packages [lints](https://pub.dev/packages/lints)
+and [flutter_lints](https://pub.dev/packages/flutter_lints),
+those rules are too loose to be productive.
+That's why this package exists,
+which enables as much rules as possible.
+
+## Principle
+
+This package copies all possible options from the API
+on the [official site](https://pub.dev/packages/lints)
+except they are deprecated, conflicted,
+or already enabled in the `flutter_lints` package,
+which is already a dependency of current package.
+
+You can read the documentation
+on the [official site](https://pub.dev/packages/lints) carefully.
+And you can click into the option titles,
+which are links to the more detailed doc with examples.
+All the linter options are well designed and useful.
+So that the author of this package is willing to enable them
+as much as possible.
 
 ## How to Use the Linter Options
 

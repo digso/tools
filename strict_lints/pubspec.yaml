@@ -1,6 +1,6 @@
 name: strict_lints
 description: Strict linter options and its parser for Dart's official docs.
-version: 1.0.0
+version: 0.3.0
 environment: {sdk: ^3.5.2}
 
 repository: https://github.com/digso/tools/tree/main/strict_lints
