@@ -19,12 +19,11 @@ And the first word in the first line should follow such specification:
 ## License and Contributors
 
 All packages inside this monorepo are released under
-the [MIT License](LICENSE.txt). And the following list is for the contributors.
-There are also such list in the README.md file of each child package
-where you are welcomed to add your name here.
-The following list is for the contributors of the root monorepo,
-especially for the common documentation and CI/CD:
-
-| GitHub UserID | Name(s)                     | Commit Email         |
-| ------------- | --------------------------- | -------------------- |
-| aprosail      | 廿一日的船 (James Aprosail) | aprosail@outlook.com |
+the [MIT License](LICENSE.txt).
+As a contributor, you are welcomed to add your name into the
+[Contributor's list file](./CONTRIBUTORS).
+This [contributor list](./CONTRIBUTORS) at root is for
+the contributors of monorepo management at the root repo,
+especially for common documentations and CI/CD.
+If you've contributed to one of the child repo,
+please add your name into the `CONTRIBUTORS` file inside such repo.
