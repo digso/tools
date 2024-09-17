@@ -1,5 +1,7 @@
 # StrictLints
 
+[English](./README.md) | [中文](./README.zh.md)
+
 Strict linter options and its parser for Dart's official docs.
 
 ## How to Use the Linter Options
