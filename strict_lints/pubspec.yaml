@@ -3,6 +3,8 @@ description: Strict linter options and its parser for Dart's official docs.
 version: 1.0.0
 environment: {sdk: ^3.5.2}
 
+repository: https://github.com/digso/tools/tree/main/strict_lints
+
 dependencies:
   flutter_lints: ^4.0.0
   html: ^0.15.4
