@@ -79,7 +79,7 @@ extension EnsurePath on YamlEditor {
       final key = pathList[i];
       if (parseAt(path).value is! Map ||
           (parseAt(path).value as Map)[key] == null) {
-        update(path, {key: {}});
+        update(path, {key: <String, bool>{}});
       }
     }
   }

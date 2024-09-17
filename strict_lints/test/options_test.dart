@@ -17,5 +17,5 @@ void main() {
 
 void yamlEditEnsureValue(Iterable<Object?> path) {
   final editor = YamlEditor('')..ensurePath(path);
-  expect(editor.parseAt(path).value, {});
+  expect(editor.parseAt(path).value, <String, bool>{});
 }
